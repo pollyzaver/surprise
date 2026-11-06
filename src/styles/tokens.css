@@ -1,0 +1,175 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   Токены бренда «Сюрприз» · концепция A-soledago
+   Источник: brand-kits/04-syurpriz/tokens-draft.json → concepts["A-soledago"]
+   Всё, что меняется при правках дизайна, живёт здесь.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* ===== шрифты ===== */
+
+/* Soledago · Alexandra Gophmann.
+   ВНИМАНИЕ (из brand-kit README): автор выложил шрифт свободно, но формальной
+   OFL-лицензии нет. Для учебной практики — ок. Перед публичным деплоем сайта
+   ансамбля: либо письменное подтверждение автора, либо заголовки в кривых. */
+@font-face {
+  font-family: "Soledago";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Soledago.woff2") format("woff2");
+}
+
+/* Roboto Slab · OFL. Замена Rockwell: ровная толщина штриха,
+   неотбивные прямоугольные засечки, почти круглая «О». */
+@font-face {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/RobotoSlab-300-cyrillic.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/RobotoSlab-300-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+20AC, U+2116, U+2122;
+}
+@font-face {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/RobotoSlab-400-cyrillic.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/RobotoSlab-400-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+20AC, U+2116, U+2122;
+}
+@font-face {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/RobotoSlab-500-cyrillic.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/RobotoSlab-500-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+20AC, U+2116, U+2122;
+}
+/* 700 на странице сейчас не используется — если понадобится жирный,
+   верни @font-face и файлы RobotoSlab-700-*.woff2 */
+
+:root {
+  /* ===== цвет · board-palette, снято с векторных заливок Untitled-1.ai ===== */
+  --c-navy: #011c47; /* основной тёмный: блоки, текст на светлом, кнопки */
+  --c-sapphire: #01467f; /* ссылки, вторичные кнопки */
+  --c-rhino: #304061; /* вторичный текст, кикер на светлом */
+  --c-pink: #de8c98; /* заливки, ховер; ТЕКСТОМ только на navy */
+  --c-pink-soft: #e9a9b5; /* промежуточный розовый — только для перелива пятна */
+  --c-peach: #f2c4ce; /* текст НА navy; на светлом — только плашка */
+  --c-icy: #c5cdda; /* линии и вторичный текст на тёмном */
+  --c-ivory: #f6ede6; /* фон сайта */
+
+  /* ===== роли ===== */
+  --bg: var(--c-ivory);
+  --bg-dark: var(--c-navy);
+  --bg-fill: var(--c-peach); /* розовая плашка на светлом */
+  --ink: var(--c-navy); /* 14.4:1 на ivory */
+  --ink-2: var(--c-rhino); /* 8.9:1 на ivory */
+  --ink-link: var(--c-sapphire); /* 8.3:1 на ivory */
+  --ink-on-dark: var(--c-ivory);
+  --ink-on-dark-2: var(--c-icy);
+  --accent-on-dark: var(--c-peach); /* 10.8:1 на navy */
+
+  /* ===== типографика ===== */
+  --font-display: "Soledago", "Roboto Slab", Georgia, serif;
+  --font-text: "Roboto Slab", Georgia, serif;
+
+  /* шкала: одна очень крупная, одна мелкая, между ними минимум ступеней */
+  --t-mega: clamp(3rem, 1.4rem + 7vw, 7rem);
+  --t-display: clamp(2.25rem, 1.3rem + 4.2vw, 4.25rem);
+  --t-head: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);
+  --t-statement: clamp(1.125rem, 0.98rem + 0.75vw, 1.5rem);
+  --t-body: 1.0625rem;
+  --t-small: 0.9375rem;
+
+  --lh-display: 0.92;
+  --lh-head: 1.05;
+  --lh-text: 1.6;
+  --tr-display: -0.015em;
+
+  /* ===== ритм · шаг 8 ===== */
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  /* расстояние между секциями заметно больше любого внутреннего */
+  --gap-section: clamp(80px, 11vw, 176px);
+
+  /* ===== сетка ===== */
+  --grid-max: 1280px;
+  --grid-gutter: 24px;
+  --grid-margin: 48px;
+
+
+  /* ===== неровные кромки секций =====
+     Маски «от руки» для смены фона (светлый ↔ navy ↔ розовый), идея
+     с lapochka.team. Три разные формы, чтобы кромки не повторялись.
+     Высота кромки — --wave-h. */
+  --wave-h: clamp(18px, 2.6vw, 42px);
+  --wave-top-a: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201440%2060%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M0%2C30.0C30.0%2C27.3%20120.0%2C13.3%20180.0%2C14.0C240.0%2C14.7%20300.0%2C28.7%20360.0%2C34.0C420.0%2C39.3%20480.0%2C48.0%20540.0%2C46.0C600.0%2C44.0%20660.0%2C28.0%20720.0%2C22.0C780.0%2C16.0%20840.0%2C9.0%20900.0%2C10.0C960.0%2C11.0%201020.0%2C23.0%201080.0%2C28.0C1140.0%2C33.0%201200.0%2C40.7%201260.0%2C40.0C1320.0%2C39.3%201410.0%2C26.7%201440.0%2C24.0L1440%2C60L0%2C60Z%22/%3E%3C/svg%3E");
+  --wave-bottom-a: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201440%2060%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M0%2C30.0C30.0%2C32.7%20120.0%2C46.7%20180.0%2C46.0C240.0%2C45.3%20300.0%2C31.3%20360.0%2C26.0C420.0%2C20.7%20480.0%2C12.0%20540.0%2C14.0C600.0%2C16.0%20660.0%2C32.0%20720.0%2C38.0C780.0%2C44.0%20840.0%2C51.0%20900.0%2C50.0C960.0%2C49.0%201020.0%2C37.0%201080.0%2C32.0C1140.0%2C27.0%201200.0%2C19.3%201260.0%2C20.0C1320.0%2C20.7%201410.0%2C33.3%201440.0%2C36.0L1440%2C0L0%2C0Z%22/%3E%3C/svg%3E");
+  --wave-top-b: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201440%2060%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M0%2C20.0C30.0%2C23.0%20120.0%2C37.0%20180.0%2C38.0C240.0%2C39.0%20300.0%2C31.0%20360.0%2C26.0C420.0%2C21.0%20480.0%2C7.3%20540.0%2C8.0C600.0%2C8.7%20660.0%2C24.0%20720.0%2C30.0C780.0%2C36.0%20840.0%2C46.0%20900.0%2C44.0C960.0%2C42.0%201020.0%2C20.0%201080.0%2C18.0C1140.0%2C16.0%201200.0%2C33.0%201260.0%2C32.0C1320.0%2C31.0%201410.0%2C15.3%201440.0%2C12.0L1440%2C60L0%2C60Z%22/%3E%3C/svg%3E");
+  --wave-bottom-b: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201440%2060%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M0%2C40.0C30.0%2C37.0%20120.0%2C23.0%20180.0%2C22.0C240.0%2C21.0%20300.0%2C29.0%20360.0%2C34.0C420.0%2C39.0%20480.0%2C52.7%20540.0%2C52.0C600.0%2C51.3%20660.0%2C36.0%20720.0%2C30.0C780.0%2C24.0%20840.0%2C14.0%20900.0%2C16.0C960.0%2C18.0%201020.0%2C40.0%201080.0%2C42.0C1140.0%2C44.0%201200.0%2C27.0%201260.0%2C28.0C1320.0%2C29.0%201410.0%2C44.7%201440.0%2C48.0L1440%2C0L0%2C0Z%22/%3E%3C/svg%3E");
+  --wave-top-c: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201440%2060%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M0%2C40.0C30.0%2C37.3%20120.0%2C29.0%20180.0%2C24.0C240.0%2C19.0%20300.0%2C9.0%20360.0%2C10.0C420.0%2C11.0%20480.0%2C23.7%20540.0%2C30.0C600.0%2C36.3%20660.0%2C47.7%20720.0%2C48.0C780.0%2C48.3%20840.0%2C37.3%20900.0%2C32.0C960.0%2C26.7%201020.0%2C15.3%201080.0%2C16.0C1140.0%2C16.7%201200.0%2C35.0%201260.0%2C36.0C1320.0%2C37.0%201410.0%2C24.3%201440.0%2C22.0L1440%2C60L0%2C60Z%22/%3E%3C/svg%3E");
+  --wave-bottom-c: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201440%2060%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20d%3D%22M0%2C20.0C30.0%2C22.7%20120.0%2C31.0%20180.0%2C36.0C240.0%2C41.0%20300.0%2C51.0%20360.0%2C50.0C420.0%2C49.0%20480.0%2C36.3%20540.0%2C30.0C600.0%2C23.7%20660.0%2C12.3%20720.0%2C12.0C780.0%2C11.7%20840.0%2C22.7%20900.0%2C28.0C960.0%2C33.3%201020.0%2C44.7%201080.0%2C44.0C1140.0%2C43.3%201200.0%2C25.0%201260.0%2C24.0C1320.0%2C23.0%201410.0%2C35.7%201440.0%2C38.0L1440%2C0L0%2C0Z%22/%3E%3C/svg%3E");
+
+  /* ===== радиусы ===== */
+  --r-sm: 2px;
+  --r-md: 3px;
+  --r-lg: 4px;
+
+  /* ===== движение ===== */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --d-press: 140ms;
+  --d-ui: 200ms;
+
+  /* ===== бумажное зерно · CSS feTurbulence, не фото-текстура ===== */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-light: 0.055; /* 5 % на светлом, multiply */
+  --grain-dark: 0.1; /* 10 % на navy, overlay */
+}
+
+@media (max-width: 900px) {
+  :root {
+    --grid-gutter: 20px;
+    --grid-margin: 32px;
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --grid-gutter: 16px;
+    --grid-margin: 20px;
+  }
+}
