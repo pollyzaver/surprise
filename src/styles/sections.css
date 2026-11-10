@@ -2047,6 +2047,13 @@
   flex: 0 0 auto;
 }
 
+/* копирайт и ссылки на документы — приглушённые: 62% от светло-голубого,
+   так текст ещё проходит контраст 4.5:1 на тёмно-синем */
+.site-footer .site-footer__legal,
+.site-footer .site-footer__links {
+  color: rgb(197 205 218 / 0.62);
+}
+
 .site-footer__links {
   flex: 0 0 auto;
   display: flex;
@@ -2074,6 +2081,10 @@
   .site-footer__vk {
     width: 44px;
     height: 44px;
+  }
+  .site-footer .site-footer__legal,
+  .site-footer .site-footer__links {
+    font-size: 0.8125rem;
   }
   .site-footer__legal {
     align-self: stretch;
