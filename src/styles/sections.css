@@ -62,18 +62,28 @@
 
 /* до 900px: меню под кнопкой */
 @media (max-width: 900px) {
+  /* шапка лежит поверх первого экрана: остаётся только бургер справа,
+     а главная начинается с самого верха, и меню становится её частью */
   .site-header {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 20;
     padding-block: var(--s-4);
+    transition: background-color var(--d-ui) ease;
+  }
+  .site-header.is-open {
+    background: var(--c-ivory);
   }
   .site-header__inner {
     gap: var(--s-4);
   }
   .site-header__cta {
-    margin-left: auto;
+    display: none;
   }
   .site-header__toggle {
+    margin-left: auto;
     display: inline-grid;
     place-items: center;
     width: 44px;
@@ -310,7 +320,12 @@
   .hero {
     flex-direction: column;
     min-height: 0;
+    /* первая строка подписи встаёт на одну линию с бургером */
+    padding-top: calc(var(--s-4) + 12px);
     padding-bottom: 0;
+  }
+  .hero__kicker {
+    padding-right: 56px;
   }
   .hero__copy {
     order: 1;
