@@ -60,9 +60,11 @@ export default function Footer() {
           </svg>
         </a>
         <p className="note site-footer__legal">{footer.copyright}</p>
-        <a className="note site-footer__policy" href="/privacy.html">
-          Политика конфиденциальности
-        </a>
+        <p className="note site-footer__links">
+          <a href="/privacy.html">Политика конфиденциальности</a>
+          <span aria-hidden="true">·</span>
+          <a href="/consent.html">Согласие на обработку данных</a>
+        </p>
       </div>
 
     </footer>

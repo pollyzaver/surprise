@@ -2047,15 +2047,51 @@
   flex: 0 0 auto;
 }
 
-.site-footer__policy {
+.site-footer__links {
   flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 0;
+}
+
+.site-footer__links a {
   color: inherit;
   text-underline-offset: 3px;
 }
 
+/* телефон: всё по центру столбиком — значок ВК, тонкая линия,
+   копирайт и ссылки на документы через точку */
 @media (max-width: 760px) {
   .site-footer__bar {
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s-6);
+    padding-top: var(--s-4);
+    border-top: 0;
+    text-align: center;
+  }
+  .site-footer__vk {
+    width: 44px;
+    height: 44px;
+  }
+  .site-footer__legal {
+    align-self: stretch;
+    max-width: none;
+    padding-top: var(--s-6);
+    border-top: 1px solid rgb(242 196 206 / 0.2);
+  }
+  .site-footer__links {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s-3);
+    margin-top: calc(-1 * var(--s-2));
+  }
+  .site-footer__links span {
+    display: none;
+  }
+  .site-footer__links a {
+    text-decoration: none;
   }
 }
 
