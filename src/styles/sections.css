@@ -282,8 +282,15 @@
 }
 
 .hero__fact-value {
+  align-self: flex-start;
   font-size: clamp(2rem, 3.4vw, 3rem);
   color: var(--ink);
+  /* розовая черта под цифрами — акцент экрана, текст остаётся тёмным */
+  text-decoration: underline;
+  text-decoration-color: var(--c-pink);
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.16em;
+  text-decoration-skip-ink: none;
 }
 
 .hero__fact-label {
@@ -1800,8 +1807,14 @@
   grid-column: 1 / 2;
 }
 
-.signup__form .check {
+.signup__form .check,
+.signup__consent {
   grid-column: 1 / -1;
+}
+
+.signup__consent .field__error {
+  margin-top: 0;
+  padding-left: calc(20px + var(--s-3));
 }
 
 .signup__submit {

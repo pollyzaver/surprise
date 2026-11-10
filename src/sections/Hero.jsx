@@ -179,9 +179,6 @@ export default function Hero() {
             <a className="btn btn-primary" href="#signup" data-signup-open>
               {hero.ctaPrimary}
             </a>
-            <a className="btn btn-quiet" href="#venues">
-              {hero.ctaQuiet}
-            </a>
           </motion.div>
 
           <motion.ul className="hero__facts" variants={rise}>
