@@ -1973,6 +1973,30 @@
   flex: 0 0 auto;
 }
 
+.site-footer__policy {
+  flex: 0 0 auto;
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  .site-footer__bar {
+    flex-wrap: wrap;
+  }
+}
+
+/* ссылки внутри согласия и подписи под ним */
+.check a,
+.signup__policy a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+.signup__policy {
+  margin: calc(-1 * var(--s-2)) 0 0;
+  font-size: 0.8125rem;
+}
+
 @media (max-width: 640px) {
   .marquee {
     margin-bottom: var(--s-10);
@@ -2174,3 +2198,32 @@ html.has-modal {
   mask-position: top, bottom;
 }
 
+
+/* ===== форма: ловушка для ботов, ошибка, отправка ===== */
+.signup__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.signup__error {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: rgb(222 140 152 / 0.18);
+  font-size: var(--t-small);
+  line-height: 1.45;
+}
+
+.signup__error a {
+  color: inherit;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.signup__submit[disabled] {
+  opacity: 0.7;
+  cursor: progress;
+}

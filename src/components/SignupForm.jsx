@@ -1,22 +1,65 @@
-import { venues } from "../data/content.js";
+import { useState } from "react";
+import { org, venues } from "../data/content.js";
 
 /* Форма записи на пробное — одна и та же в блоке «Запись» и во
    всплывающем окне. Поля по вайрфрейму (практика 3, попап 1):
    имя родителя, телефон, возраст ребёнка, площадка, согласие.
 
-   TODO: подключить отправку заявки (почта, Телеграм-бот или форма Яндекса).
-   Пока браузер проверяет обязательные поля, и форма сообщает onSent(). */
+   На опубликованном сайте заявка уходит в функцию /api/signup
+   (файл api/signup.js), а та пересылает её в Телеграм.
+   При локальной разработке (npm run dev) функции нет, поэтому форма
+   работает как макет: сразу показывает «Заявка записана».
+   Адрес можно переопределить переменной VITE_SIGNUP_URL. */
+
+const SIGNUP_URL =
+  import.meta.env.VITE_SIGNUP_URL || (import.meta.env.PROD ? "/api/signup" : "");
+
+async function sendSignup(data) {
+  if (!SIGNUP_URL) {
+    console.info("VITE_SIGNUP_URL не задан — заявка не отправлена (режим макета)", data);
+    return;
+  }
+  const res = await fetch(SIGNUP_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok || !json.ok) throw new Error(json.error || `HTTP ${res.status}`);
+}
 
 export default function SignupForm({ idPrefix, onSent, className = "", autoFocus = false }) {
-  function handleSubmit(e) {
+  const [status, setStatus] = useState("idle"); // idle | sending | error
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    onSent?.(Object.fromEntries(new FormData(e.currentTarget)));
+    if (status === "sending") return;
+    const data = Object.fromEntries(new FormData(e.currentTarget));
+    setStatus("sending");
+    try {
+      await sendSignup(data);
+      setStatus("idle");
+      onSent?.(data);
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+    }
   }
 
   const id = (name) => `${idPrefix}-${name}`;
 
   return (
     <form className={`signup__form ${className}`} onSubmit={handleSubmit}>
+      {/* ловушка для спам-ботов: людям не видна, боты её заполняют */}
+      <input
+        className="signup__trap"
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+      />
+
       <label className="field" htmlFor={id("parent")}>
         <span>Имя родителя</span>
         <input
@@ -67,11 +110,35 @@ export default function SignupForm({ idPrefix, onSent, className = "", autoFocus
 
       <label className="check" htmlFor={id("consent")}>
         <input id={id("consent")} name="consent" type="checkbox" required />
-        <span>Согласен(на) на обработку персональных данных</span>
+        <span>
+          Даю{" "}
+          <a href="/consent.html" target="_blank" rel="noreferrer">
+            согласие на обработку персональных данных
+          </a>
+        </span>
       </label>
+      <p className="note signup__policy">
+        Как мы храним и используем данные — в{" "}
+        <a href="/privacy.html" target="_blank" rel="noreferrer">
+          политике конфиденциальности
+        </a>
+        .
+      </p>
 
-      <button className="btn btn-primary signup__submit" type="submit">
-        Отправить заявку
+      {status === "error" && (
+        <p className="signup__error" role="alert">
+          Не получилось отправить заявку. Попробуйте ещё раз или позвоните:{" "}
+          <a href={org.phoneHref}>{org.phone}</a>
+        </p>
+      )}
+
+      <button
+        className="btn btn-primary signup__submit"
+        type="submit"
+        disabled={status === "sending"}
+        aria-busy={status === "sending"}
+      >
+        {status === "sending" ? "Отправляем…" : "Отправить заявку"}
       </button>
     </form>
   );
