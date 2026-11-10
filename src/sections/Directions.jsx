@@ -1,8 +1,17 @@
+import { useState } from "react";
 import { Stagger, Item } from "../components/Reveal.jsx";
-import Photo from "../components/Photo.jsx";
 import { directions } from "../data/content.js";
 
+/* Направления — гармошка из вертикальных полос с фото со сцены.
+   Подписи лежат прямо на фото, без плашек: внизу кадра мягкое затемнение,
+   на раскрытой полосе номер, название и описание, на свёрнутых —
+   вертикальная подпись.
+   Мышь: раскрывает наведение. Клавиатура: Tab (фокус раскрывает).
+   Телефон: полосы идут столбиком, раскрывает нажатие. */
+
 export default function Directions() {
+  const [active, setActive] = useState(0);
+
   return (
     <section className="section directions" id="directions">
       <div className="wrap">
@@ -13,29 +22,47 @@ export default function Directions() {
           </Item>
         </Stagger>
 
-        <Stagger className="directions__grid grid-12" amount={0.1}>
-          {directions.items.map((d) => (
-            <Item
-              key={d.id}
-              as="article"
-              className={`direction direction--span-${d.span}${
-                d.highlight ? " direction--highlight" : ""
-              }`}
-            >
-              <Photo
-                src={d.src}
-                alt={d.alt}
-                w={d.w}
-                h={d.h}
-                ratio={d.ratio}
-                position={d.position}
-                className="direction__photo"
-              />
-              <h3 className="direction__title">{d.title}</h3>
-              <p className="kicker direction__age">{d.age}</p>
-              <p className="note direction__text">{d.text}</p>
-            </Item>
-          ))}
+        <Stagger className="accordion" amount={0.15}>
+          {directions.items.map((d, i) => {
+            const on = i === active;
+            const n = String(i + 1).padStart(2, "0");
+            return (
+              <Item
+                key={d.id}
+                as="button"
+                type="button"
+                className={`accordion__panel${on ? " is-open" : ""}`}
+                aria-expanded={on}
+                onMouseEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                onClick={() => setActive(i)}
+              >
+                <span className="accordion__media">
+                  <img
+                    className="accordion__photo"
+                    src={d.src}
+                    alt={d.alt}
+                    width={d.w}
+                    height={d.h}
+                    loading="lazy"
+                    decoding="async"
+                    style={{
+                      objectPosition: d.position ?? "50% 50%",
+                      ...(d.lift && { top: `-${d.lift}`, height: `calc(100% + ${d.lift})` }),
+                    }}
+                  />
+                  <span className="accordion__label" aria-hidden={on}>
+                    {n} · {d.title}
+                  </span>
+                  <span className="accordion__caption" aria-hidden={!on}>
+                    <span className="accordion__num">{n}</span>
+                    <span className="accordion__title">{d.title}</span>
+                    <span className="accordion__text">{d.text}</span>
+                  </span>
+                </span>
+              </Item>
+            );
+          })}
         </Stagger>
       </div>
     </section>

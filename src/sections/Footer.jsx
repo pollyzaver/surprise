@@ -9,6 +9,10 @@ import { footer, org } from "../data/content.js";
    на тёмном, по телу не обрезана, по бокам оставлены поля, чтобы крайние
    фигуры не упирались в край. Кадр показан целиком, без затухания. */
 
+/* фирменная звёздочка — та же, что мерцает в блоке «О коллективе» */
+const SPARK =
+  "M12 0C13 7 17 11 24 12C17 13 13 17 12 24C11 17 7 13 0 12C7 11 11 7 12 0Z";
+
 export default function Footer() {
   return (
     <footer className="site-footer paper-dark on-dark">
@@ -32,7 +36,9 @@ export default function Footer() {
           {Array.from({ length: 8 }, (_, i) => (
             <span key={i} className="marquee__item">
               <Wordmark className="wordmark marquee__word" />
-              <span className="marquee__dot" />
+              <svg className="marquee__spark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d={SPARK} />
+              </svg>
             </span>
           ))}
         </div>

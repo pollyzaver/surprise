@@ -22,9 +22,9 @@ export default function App() {
         <Hero />
         <About />
         <Directions />
+        <Price />
         <Stage />
         <Venues />
-        <Price />
         <Reviews />
         <Signup />
       </main>

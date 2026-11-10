@@ -258,7 +258,7 @@ ul {
   line-height: 1;
   padding: 1.05em 1.6em;
   border: 0;
-  border-radius: var(--r-sm);
+  border-radius: var(--r-pill);
   cursor: pointer;
   text-decoration: none;
   transition:
