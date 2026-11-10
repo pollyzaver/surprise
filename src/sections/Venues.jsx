@@ -116,7 +116,11 @@ export default function Venues() {
                   rel="noreferrer"
                   aria-label={`Маршрут: ${v.address}, откроется Яндекс.Карты`}
                 >
-                  Маршрут ↗
+                  Маршрут
+                  {/* стрелка рисуется SVG: символ «↗» на iPhone превращается в эмодзи */}
+                  <svg className="venue__arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M5 11 11 5M6 5h5v5" />
+                  </svg>
                 </a>
               </li>
             ))}
