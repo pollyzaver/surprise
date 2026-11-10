@@ -91,14 +91,13 @@ export default function Stage() {
             <Item as="p" className="lead">
               {awards.lead}
             </Item>
-            <Item as="p" className="note awards__footnote">
-              {awards.footnote}
-            </Item>
           </div>
 
           <Item as="ul" className="awards__list">
             {awards.list.map((a) => (
-              <li key={a}>{a}</li>
+              <li key={a.name} className={`awards__chip${a.top ? " awards__chip--top" : ""}`}>
+                {a.name}
+              </li>
             ))}
           </Item>
         </Stagger>
