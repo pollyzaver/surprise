@@ -9,6 +9,7 @@ import Price from "./sections/Price.jsx";
 import Reviews from "./sections/Reviews.jsx";
 import Footer from "./sections/Footer.jsx";
 import SignupModal from "./components/SignupModal.jsx";
+import ScrollTop from "./components/ScrollTop.jsx";
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
         <Reviews />
       </main>
       <Footer />
+      <ScrollTop />
       <SignupModal />
     </MotionConfig>
   );

@@ -2575,3 +2575,45 @@ html.has-modal {
     height: 86%;
   }
 }
+
+/* ===== кнопка «наверх» — появляется у подвала ===== */
+.scroll-top {
+  position: fixed;
+  right: clamp(16px, 3vw, 40px);
+  bottom: clamp(16px, 3vw, 40px);
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 2px solid var(--c-ivory);
+  border-radius: 50%;
+  background: var(--c-pink);
+  color: var(--c-navy);
+  box-shadow: 0 12px 28px rgb(1 28 71 / 0.35);
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease-out);
+}
+.scroll-top svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: translate 0.25s var(--ease-out);
+}
+@media (hover: hover) {
+  .scroll-top:hover { background: var(--c-peach); }
+  .scroll-top:hover svg { translate: 0 -3px; }
+}
+.scroll-top:focus-visible {
+  outline: 3px solid var(--c-peach);
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .scroll-top { width: 48px; height: 48px; }
+  .scroll-top svg { width: 22px; height: 22px; }
+}
