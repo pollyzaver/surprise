@@ -5,7 +5,7 @@ import { stage, awards } from "../data/content.js";
 
 /* Единственный тёмный блок страницы: архив постановок и достижения.
    Приём из brand kit: кадры разного масштаба выхватываются по одному,
-   кластер = одна постановка, подписи вертикальные, тонкая направляющая. */
+   кластер = одна постановка, кадры стоят плотно, без подписей; тонкая направляющая. */
 
 const EASE = [0.23, 1, 0.32, 1];
 
@@ -19,18 +19,13 @@ const frameVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.85, ease: EASE } },
 };
 
-const captionVariants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.9, delay: 0.45 } },
-};
-
 export default function Stage() {
   return (
     <section className="stage paper-dark on-dark" id="stage">
       <div className="stage__guide" aria-hidden="true" />
 
       <div className="wrap stage__head">
-        <Stagger>
+        <Stagger className="stage__headrow">
           <Item as="h2">{stage.heading}</Item>
           <Item as="p" className="lead">
             {stage.lead}
@@ -48,10 +43,6 @@ export default function Stage() {
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <motion.p className="cluster__caption" variants={captionVariants}>
-              <span className="cluster__group">{c.caption}</span>
-            </motion.p>
-
             {/* на телефоне — горизонтальная лента со свайпом,
                 на десктопе display: contents, кадры стоят как раньше */}
             <div className="cluster__strip">

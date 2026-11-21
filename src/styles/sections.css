@@ -890,7 +890,24 @@
 }
 
 .stage__track {
-  margin-top: var(--s-20);
+  margin-top: var(--s-12);
+}
+
+/* заголовок слева, описание справа по нижней линии — как у «Направлений» */
+@media (min-width: 901px) {
+  .stage__headrow {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--s-6) var(--s-12);
+  }
+  .stage__head h2 {
+    margin-bottom: 0;
+  }
+  .stage__head .lead {
+    max-width: 46ch;
+    margin: 0;
+  }
 }
 
 .cluster {
@@ -924,9 +941,14 @@
 }
 
 @media (min-width: 901px) {
+  /* коллаж плотный: высота кластера задана пропорцией (макет 1920 × 620),
+     поэтому кадры стоят впритык на любой ширине и не разъезжаются */
   .cluster {
-    min-height: 88vh;
-    padding-block: var(--s-12);
+    aspect-ratio: 1920 / 620;
+    padding-block: 0;
+  }
+  .cluster + .cluster {
+    margin-top: var(--s-6);
   }
   .cluster__caption {
     position: absolute;
@@ -969,10 +991,7 @@
     margin-top: var(--s-12);
   }
   .cluster {
-    margin-bottom: var(--s-12);
-  }
-  .cluster__caption {
-    margin-bottom: var(--s-4);
+    margin-bottom: var(--s-3);
   }
   .cluster__strip {
     display: flex;
