@@ -2461,3 +2461,26 @@ html.has-modal {
   -webkit-mask-image: none;
   mask-image: none;
 }
+
+/* телефон: первый экран целиком помещается в один экран.
+   Высота блока = видимая высота окна (svh — без панелей браузера),
+   фигура с пятном забирает всё, что осталось после текста и цифр,
+   поэтому на коротких экранах девочка сама становится меньше */
+@media (max-width: 600px) {
+  .hero {
+    height: 100svh;
+    min-height: 600px;
+  }
+  .hero__statement {
+    font-size: clamp(15px, 4vw, 17px);
+  }
+  .hero__stage {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 220px;
+  }
+  .hero__scene {
+    width: min(76%, 330px);
+    height: 86%;
+  }
+}
