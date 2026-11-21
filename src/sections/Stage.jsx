@@ -49,7 +49,6 @@ export default function Stage() {
             viewport={{ once: true, amount: 0.3 }}
           >
             <motion.p className="cluster__caption" variants={captionVariants}>
-              <span className="todo">{c.todo}</span>
               <span className="cluster__group">{c.caption}</span>
             </motion.p>
 

@@ -37,6 +37,15 @@ export default function Header() {
               </li>
             ))}
           </ul>
+          {/* только в раскрытом мобильном меню: запись — кнопкой, а не пунктом */}
+          <a
+            className="btn btn-primary site-nav__cta"
+            href="#signup"
+            data-signup-open
+            onClick={() => setOpen(false)}
+          >
+            Записаться на пробное
+          </a>
         </nav>
 
         <a className="btn btn-primary site-header__cta" href="#signup" data-signup-open>

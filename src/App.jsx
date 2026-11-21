@@ -7,7 +7,6 @@ import Stage from "./sections/Stage.jsx";
 import Venues from "./sections/Venues.jsx";
 import Price from "./sections/Price.jsx";
 import Reviews from "./sections/Reviews.jsx";
-import Signup from "./sections/Signup.jsx";
 import Footer from "./sections/Footer.jsx";
 import SignupModal from "./components/SignupModal.jsx";
 
@@ -26,7 +25,6 @@ export default function App() {
         <Stage />
         <Venues />
         <Reviews />
-        <Signup />
       </main>
       <Footer />
       <SignupModal />

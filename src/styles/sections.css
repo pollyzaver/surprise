@@ -197,7 +197,8 @@
 
 /* розовое пятно: целиком внутри первого экрана, сверху и снизу
    есть воздух, поэтому контур нигде не срезается */
-.hero__pool {
+.hero__pool,
+.hero__cloth {
   position: absolute;
   /* viewBox пятна с запасом по краям под выпуклости, поэтому бокс шире
      видимой формы: сама форма по-прежнему ~66% × 86% экрана */
@@ -212,7 +213,32 @@
   height: 100%;
 }
 
-/* тёплое ядро пятна — оно «дышит» */
+/* шёлковая ткань (WebGL) стоит на месте пятна. Пока она не готова,
+   видно статичное пятно; потом они плавно меняются местами */
+.hero__cloth {
+  opacity: 0;
+  transition: opacity 900ms ease-out;
+}
+.hero__cloth canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.hero__pool,
+.hero__core {
+  transition: opacity 900ms ease-out;
+}
+.hero__stage[data-cloth="on"] .hero__cloth {
+  opacity: 1;
+}
+.hero__stage[data-cloth="on"] .hero__pool {
+  opacity: 0;
+}
+.hero__stage[data-cloth="on"] .hero__core {
+  opacity: 0;
+}
+
+/* тёплое ядро пятна */
 .hero__core {
   position: absolute;
   right: 16%;
@@ -327,9 +353,19 @@
   /* на телефоне весь первый экран по центру, включая название;
      подпись с отступами с обеих сторон, чтобы не залезать под бургер
      и оставаться по центру экрана */
+  /* всегда ровно две строки по центру: «образцовый детский коллектив» /
+     «ансамбль танца». Строки не переносятся, на узких телефонах шрифт
+     чуть мельче; поля с обеих сторон под ширину бургера, чтобы подпись
+     не залезала под него и оставалась точно по центру экрана */
   .hero__kicker {
-    padding-inline: 38px;
+    padding-inline: 44px;
     text-align: center;
+    white-space: nowrap;
+    font-size: clamp(11px, 3.4vw, var(--t-small));
+    /* у абзацев общий max-width: на планшете подпись была уже экрана
+       и прижималась влево — растягиваем на всю ширину */
+    max-width: none;
+    margin-inline: auto;
   }
   .hero__title .wordmark--hero {
     display: block;
@@ -373,7 +409,8 @@
     width: 100%;
     height: min(62vh, 440px);
   }
-  .hero__pool {
+  .hero__pool,
+  .hero__cloth {
     right: -5%;
     left: -5%;
     top: -6%;
@@ -416,11 +453,11 @@
   overflow: hidden;
   background: var(--c-navy);
   color: var(--ink-on-dark);
-  padding-block: calc(clamp(64px, 7vw, 104px) + var(--wave-h));
+  padding-block: calc(var(--pad-block) + var(--wave-h));
 }
 
 .directions {
-  padding-top: var(--gap-section);
+  padding-block: var(--pad-block);
 }
 
 /* фото слева, текст справа (в разметке текст идёт первым — так он
@@ -820,7 +857,7 @@
 /* ===== единственный тёмный блок: сцена + достижения ===== */
 
 .stage {
-  padding-top: var(--gap-section);
+  padding-top: var(--pad-block);
   overflow: hidden;
 }
 
@@ -968,7 +1005,7 @@
 
 .awards {
   padding-top: var(--s-16);
-  padding-bottom: var(--s-16);
+  padding-bottom: var(--pad-block);
 }
 
 /* текст слева, конкурсы справа плашками — блок не выше текста */
@@ -1019,7 +1056,7 @@
     gap: var(--s-8);
   }
   .awards {
-    padding-block: var(--s-12);
+    padding-top: var(--s-12);
   }
   .awards__list {
     margin-left: 0;
@@ -1657,7 +1694,7 @@
   overflow: hidden;
   background: var(--bg-fill);
   color: var(--c-navy);
-  padding-block: calc(clamp(64px, 7vw, 112px) + var(--wave-h));
+  padding-block: calc(var(--pad-block) + var(--wave-h));
 }
 
 .reviews__heart {
@@ -2176,14 +2213,14 @@
 .stage {
   --wave-top: var(--wave-top-c);
   --wave-bottom: var(--wave-bottom-a);
-  padding-top: calc(var(--gap-section) + var(--wave-h));
+  padding-top: calc(var(--pad-block) + var(--wave-h));
   padding-bottom: var(--wave-h);
 }
 
 .price {
   --wave-top: var(--wave-top-b);
   --wave-bottom: var(--wave-bottom-c);
-  padding-block: calc(clamp(56px, 6vw, 96px) + var(--wave-h));
+  padding-block: calc(var(--pad-block) + var(--wave-h));
 }
 
 .reviews {
@@ -2201,7 +2238,7 @@
   mask-position: top, bottom;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  padding-top: calc(clamp(24px, 3.5vw, 56px) + var(--wave-h));
+  padding-top: calc(var(--pad-block) + var(--wave-h));
 }
 
 /* ===== всплывающее окно записи на пробное ===== */
@@ -2368,4 +2405,40 @@ html.has-modal {
 .signup__submit[disabled] {
   opacity: 0.7;
   cursor: progress;
+}
+
+/* кнопка записи внутри раскрытого мобильного меню; на десктопе её нет —
+   там запись в шапке кнопкой «Пробное занятие» */
+.site-nav__cta {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  /* перебиваем стиль пунктов меню (.site-nav a): кнопка светлым по тёмному */
+  .site-nav .site-nav__cta {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 52px;
+    margin-top: var(--s-4);
+    font-size: var(--t-small);
+    color: var(--c-ivory);
+  }
+}
+
+/* блока записи больше нет: розовые «Отзывы» и тёмный подвал стоят
+   вплотную. Подвал заходит под нижнюю волну отзывов — в вырезе волны
+   видно тёмно-синее, а не светлую полосу страницы. Верхней волны у
+   подвала больше нет, её роль играет волна отзывов. */
+.reviews {
+  position: relative;
+  z-index: 1;
+}
+
+.site-footer {
+  position: relative;
+  z-index: 0;
+  margin-top: calc(-1 * var(--wave-h));
+  -webkit-mask-image: none;
+  mask-image: none;
 }

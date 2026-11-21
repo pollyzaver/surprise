@@ -30,7 +30,6 @@ export const nav = [
   { id: "stage", label: "Сцена" },
   { id: "venues", label: "Площадки" },
   { id: "reviews", label: "Отзывы" },
-  { id: "signup", label: "Записаться" },
 ];
 
 export const hero = {
@@ -129,7 +128,7 @@ export const directions = {
 };
 
 /* Тёмный блок: архив постановок + достижения.
-   TODO: названия постановок Полина пришлёт отдельно — пока заглушки. */
+*/
 export const stage = {
   heading: "Как это выглядит со сцены",
   lead:
@@ -139,7 +138,6 @@ export const stage = {
     {
       id: "cl-1",
       caption: "Старшая группа",
-      todo: "[название постановки]",
       photos: [
         {
           src: "/media/st-beige.webp",
@@ -170,7 +168,6 @@ export const stage = {
     {
       id: "cl-2",
       caption: "Средняя группа",
-      todo: "[название постановки]",
       photos: [
         {
           src: "/media/st-cloak.webp",
@@ -200,7 +197,6 @@ export const stage = {
     {
       id: "cl-3",
       caption: "Весь коллектив",
-      todo: "[название постановки]",
       photos: [
         {
           src: "/media/st-red.webp",

@@ -140,7 +140,7 @@ ul {
 }
 
 .section {
-  padding-block: var(--gap-section);
+  padding-block: var(--pad-block);
 }
 
 /* ===== бумажное зерно: только фоновые слои, никогда поверх фотографий ===== */
