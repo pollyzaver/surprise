@@ -12,9 +12,16 @@ import { reviews } from "../data/content.js";
    сторону. Так блок «дышит», а не едет одной плитой.
    reduced motion — сдвиг выключен. */
 
-/* наклон и «глубина» для каждого пузыря по порядку */
+/* наклон для каждого пузыря по порядку */
 const TILT = [-2, 5, 1.5, -1, 1, 2.5, -1.5, 1, -2];
-const DEPTH = [40, -60, 70, -30, -50, 30, 55, -45, 35];
+
+/* «глубина» параллакса: колонки едут с разной скоростью (средняя —
+   навстречу), а внутри колонки пузыри почти синхронны — разброс ±8 px.
+   Раньше у соседних пузырей одной колонки сдвиг шёл в разные стороны
+   до 110 px и они наезжали друг на друга; теперь сближение не больше
+   16 px при промежутке 40 px. */
+const COL_DEPTH = [40, -55, 60];
+const JITTER = [0, 8, -8, 4, -4, 8, -8, 4, 0];
 
 const HEARTS = [
   { s: 54, l: "4%", t: "16%", r: -12 },
@@ -40,8 +47,27 @@ function useNarrow() {
   return narrow;
 }
 
+/* цвет кружка-аватарки по порядку */
+const AVA = ["pink", "sapphire", "peach", "icy", "navy"];
+/* у каких сообщений «поставлено сердечко» */
+const LIKED = new Set([0, 4, 7]);
+/* какие пузыри тонированы — как ответы в чате, для ритма */
+const TINT = { 2: "peach", 6: "icy" };
+
+function Ticks() {
+  return (
+    <svg className="review__ticks" viewBox="0 0 18 10" aria-hidden="true">
+      <path d="M1 5.5 3.8 8.3 9.6 1.7M7.2 7.4l.9.9 5.8-6.6" />
+    </svg>
+  );
+}
+
 function Bubble({ item, index, progress, reduce, narrow }) {
-  const depth = reduce ? 0 : DEPTH[index % DEPTH.length] * (narrow ? 0.3 : 1);
+  const jitter = JITTER[index % JITTER.length];
+  /* в мобильной ленте соседние пузыри — из разных колонок, поэтому
+     там оставляем только лёгкий разброс без разницы колонок */
+  const base = narrow ? jitter : COL_DEPTH[item.col ?? 0] + jitter;
+  const depth = reduce ? 0 : base;
   const y = useTransform(progress, [0, 1], [depth, -depth]);
   const side = index % 2 ? "end" : "start";
 
@@ -50,15 +76,35 @@ function Bubble({ item, index, progress, reduce, narrow }) {
       className={`review-wrap review-wrap--${side}${item.short ? " review-wrap--short" : ""}`}
       style={{ y, rotate: TILT[index % TILT.length], order: index }}
     >
-      <Item as="figure" className="review">
+      <Item
+        as="figure"
+        className={`review${TINT[index] ? ` review--${TINT[index]}` : ""}`}
+      >
         <figcaption className="review__author">
-          {item.author}
-          {item.context && <span className="review__context"> · {item.context}</span>}
+          <span className={`review__ava review__ava--${AVA[index % AVA.length]}`} aria-hidden="true">
+            {item.author.trim().charAt(0)}
+          </span>
+          <span className="review__who">
+            <span className="review__name">{item.author}</span>
+            {item.context && <span className="review__context">{item.context}</span>}
+          </span>
         </figcaption>
         <blockquote className="review__quote">
           <p>{item.quote}</p>
         </blockquote>
-        {item.time && <p className="review__time">{item.time}</p>}
+        {item.time && (
+          <p className="review__time">
+            {item.time}
+            <Ticks />
+          </p>
+        )}
+        {LIKED.has(index) && (
+          <span className="review__like" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.2 0 3.9 1.2 5.4 3.1 1.5-1.9 3.2-3.1 5.4-3.1 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z" />
+            </svg>
+          </span>
+        )}
       </Item>
     </motion.div>
   );

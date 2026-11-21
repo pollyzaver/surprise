@@ -1810,14 +1810,33 @@
 }
 
 .review {
+  position: relative;
   margin: 0;
   width: 100%;
   box-sizing: border-box;
-  padding: 16px 20px 12px;
+  padding: 16px 22px 12px;
   background: #fff;
-  border-radius: 22px 22px 22px 6px;
-  box-shadow: 0 12px 28px rgb(1 28 71 / 0.1);
+  border-radius: 24px 24px 24px 6px;
+  box-shadow:
+    0 1px 0 rgb(1 28 71 / 0.04),
+    0 18px 36px -12px rgb(1 28 71 / 0.18);
 }
+
+/* хвостик сообщения слева снизу */
+.review::after {
+  content: "";
+  position: absolute;
+  left: -7px;
+  bottom: 0;
+  width: 16px;
+  height: 14px;
+  background: inherit;
+  -webkit-mask: radial-gradient(circle at 0 0, transparent 13px, #000 13.5px);
+  mask: radial-gradient(circle at 0 0, transparent 13px, #000 13.5px);
+}
+
+.review--peach { background: #fbe7eb; }
+.review--icy { background: #e9eef6; }
 
 .review-wrap--short .review {
   width: auto;
@@ -1825,32 +1844,96 @@
 }
 
 .review__author {
-  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.review__ava {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-family: var(--font-text);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+}
+.review__ava--pink { background: var(--c-pink); }
+.review__ava--sapphire { background: var(--c-sapphire); }
+.review__ava--peach { background: var(--c-peach); color: var(--c-navy); }
+.review__ava--icy { background: var(--c-icy); color: var(--c-navy); }
+.review__ava--navy { background: var(--c-navy); }
+
+.review__who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.review__name {
+  font-size: 0.9375rem;
   font-weight: 500;
   color: var(--c-sapphire);
 }
 
 .review__context {
-  font-weight: 400;
+  font-size: 0.75rem;
   color: var(--c-rhino);
 }
 
 .review__quote {
-  margin: 6px 0 0;
+  margin: 10px 0 0;
 }
 
 .review__quote p {
   margin: 0;
   font-size: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
   font-weight: 300;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .review__time {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
   margin: 6px 0 0;
-  text-align: right;
   font-size: 0.75rem;
   color: var(--c-rhino);
+}
+
+.review__ticks {
+  width: 16px;
+  height: 9px;
+  fill: none;
+  stroke: var(--c-sapphire);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* реакция-сердечко на углу пузыря */
+.review__like {
+  position: absolute;
+  right: 16px;
+  bottom: -13px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 10px rgb(1 28 71 / 0.14);
+}
+.review__like svg {
+  width: 15px;
+  height: 15px;
+  fill: var(--c-pink);
 }
 
 .reviews__cta {
@@ -1873,7 +1956,7 @@
   .reviews__list {
     display: flex;
     flex-direction: column;
-    gap: var(--s-6);
+    gap: var(--s-10);
     margin-top: var(--s-12);
   }
   .reviews__col {
@@ -1887,6 +1970,14 @@
   }
   .review-wrap--end {
     align-self: flex-end;
+  }
+  .review-wrap--end .review {
+    border-radius: 24px 24px 6px 24px;
+  }
+  .review-wrap--end .review::after {
+    left: auto;
+    right: -7px;
+    transform: scaleX(-1);
   }
   .review-wrap--short .review {
     max-width: none;
