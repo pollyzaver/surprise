@@ -2617,3 +2617,20 @@ html.has-modal {
   .scroll-top { width: 48px; height: 48px; }
   .scroll-top svg { width: 22px; height: 22px; }
 }
+
+/* ===== режим скриншота для портфолио (?pin) =====
+   фото размыты так, чтобы лица были неузнаваемы,
+   адреса и названия школ скрыты */
+.pin-mode main img,
+.pin-mode .site-footer img {
+  filter: blur(7px) !important;
+}
+.pin-mode .venue__address,
+.pin-mode .venue__place {
+  filter: blur(7px);
+  user-select: none;
+}
+/* у героини лицо и так мелкое и вниз головой — хватает лёгкого размытия */
+.pin-mode .hero img {
+  filter: blur(3px) !important;
+}
