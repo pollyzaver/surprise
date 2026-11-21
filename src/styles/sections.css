@@ -1784,7 +1784,7 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--s-10);
   align-items: start;
-  margin: var(--s-16) 0 var(--s-12);
+  margin: var(--s-16) 0 var(--s-16);
 }
 
 .reviews__col {
